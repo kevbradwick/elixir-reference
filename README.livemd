@@ -2,6 +2,10 @@
 
 # Elixir Reference
 
-## Section
+## Overview
 
 This repo contains a list of Elixir notebooks to document the key concepts of the [Elixir](https://elixir-lang.org/) programming language in my journey of learning. It uses [Livebook](https://livebook.dev/) for creating interactive notbooks, much like Jupyter notebook for Python.
+
+## Pages
+
+* [Basics](./basics.livemd)

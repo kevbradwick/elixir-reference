@@ -13,7 +13,23 @@ a
 
 Now if we try to match that against another value it will fail. We use the caret character `^` to pin the variable `a` (you can think of this as making it immutable).
 
+<!-- livebook:{"continue_on_error":true} -->
+
 ```elixir
 ^a = 2
 a
+```
+
+Pattern matching is used every where. Here's an example of a function that uses pattern matching on the value of its parameter. If it matches the string "Kevin" then the first branch is evaluated, otherwise the value will be matched against the variable `name` and can then be used to return a different string.
+
+```elixir
+greet = fn
+  "Kevin" -> "Yo Kevin"
+  name -> "Hello #{name}"
+end
+
+# Yo Kevin
+greet.("Kevin")
+# Hello World
+greet.("World")
 ```
