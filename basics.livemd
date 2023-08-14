@@ -1,0 +1,19 @@
+# Basics
+
+## Pattern Matching
+
+In Eleixir there is no assigment as in other languages. For example `a = 1` is not assigning the integer `1` to the variable `a`, even though it looks like it on the surface. Instead Elixir is evaluating this as a pattern match. The result of this evaluating is the binding of `1` to the variable `a`.
+
+For example, the following expression succesfully matches the right hand side to the left.
+
+```elixir
+a = 1
+a
+```
+
+Now if we try to match that against another value it will fail. We use the caret character `^` to pin the variable `a` (you can think of this as making it immutable).
+
+```elixir
+^a = 2
+a
+```
