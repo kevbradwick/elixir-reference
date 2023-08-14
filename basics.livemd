@@ -33,3 +33,58 @@ greet.("Kevin")
 # Hello World
 greet.("World")
 ```
+
+Another form of pattern matching within function parameters is matching partial structures such as maps. In the following example, two maps are created and the pattern match is looking for the partial structure containing `name:` and `type:` keys. The `age:` and `color:` keys are ignored.
+
+```elixir
+person = %{name: "Kevin", age: 43, type: "Human"}
+pet = %{name: "Sylvester", age: 13, type: "Cat", color: "Tabby"}
+
+greet = fn
+  %{type: "Human", name: name} -> "You are a human #{name}!"
+  %{type: "Cat", name: name} -> "Meow - #{name}"
+  _ -> "I don't know what you are!"
+end
+
+# "You are a human Kevin"
+greet.(person)
+# "Meow - Sylvester"
+greet.(pet)
+# "I don't know what you are"
+greet.(123)
+```
+
+## Processes
+
+Processes form a key concept of the Elixir language. As it is built on top of Erlang, it uses the Actor model underneath. You can create new processes using one of the `spawn` functions. The following example creates 3 processes and prints out the process id of each. `spawn` has two versions, `spawn/1` takes a single anonymous function, whilst `spawn/3` take a module name, a function (as an antom), and a list of parameters.
+
+```elixir
+defmodule Processes1 do
+  def greet(name) do
+    IO.puts("Hello #{name}, PID: #{inspect(self())}")
+  end
+end
+
+spawn(Processes1, :greet, ["World"])
+spawn(Processes1, :greet, ["World"])
+spawn(Processes1, :greet, ["World"])
+```
+
+You can send messages to processes by using the `send` function and receive messages in the spawned process using the `receive` function.
+
+```elixir
+defmodule Processes2 do
+  def greet do
+    receive do
+      "Kevin" -> IO.puts("#{inspect(self())} - Yo Kevin")
+      name -> IO.puts("#{inspect(self())} - Who are you #{name}?")
+    end
+  end
+end
+
+p1 = spawn(Processes2, :greet, [])
+p2 = spawn(Processes2, :greet, [])
+
+send(p1, "Kevin")
+send(p2, "William")
+```
